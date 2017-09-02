@@ -9,7 +9,10 @@ Tile = Class "Tile",
 		@structure = arg.structure
 
 Class "Map",
-	:Tile
+	__init: (arg) =>
+		@noises = arg.noises or nil -- FIXME
+		@terrainChanges = arg.terrainChanges or {}
+
 	---
 	-- @return (Tile)
 	get: (x, y, z) =>
@@ -22,7 +25,11 @@ Class "Map",
 	-- @return (string)
 	toMoon: =>
 
-	---
-	-- @param str (string)
-	fromMoon: (str) =>
+	__class: {
+		:Tile
+
+		---
+		-- @param str (string)
+		fromMoon: (str) =>
+	}
 
