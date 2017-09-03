@@ -7,7 +7,7 @@ Widget.register "nyaa.map", =>
 	@\onPreDisplay (e) ->
 		-- Drawing code comes here.
 
-pages = require "game.ui.pages"
+layouts = require "game.ui.layouts"
 
 style = {
 	glass:
@@ -28,7 +28,7 @@ style = {
 		slices: "data/art/glass_white.png"
 }
 
-with pages.GAME_UI
+with layouts.GAME_UI
 	-- Complete path is needed here because the location of Luigi’s assets are based on it…
 	\setTheme require "lib.luigi.luigi.theme.dark"
 
@@ -36,7 +36,7 @@ with pages.GAME_UI
 
 	.menuButton\onPress (e) ->
 		\hide!
-		pages.MAIN_MENU\show!
+		layouts.MAIN_MENU\show!
 
 	-- FIXME: Handle this in nyaa.map.
 	.map\onPressDrag (e) ->
@@ -73,13 +73,13 @@ with pages.GAME_UI
 
 		table.remove panel, index
 
-with pages.MAIN_MENU
+with layouts.MAIN_MENU
 	\setTheme require "lib.luigi.luigi.theme.dark"
 	\setStyle style
 
 	.newGameButton\onPress (e) ->
 		\hide!
-		pages.GAME_UI\show!
+		layouts.GAME_UI\show!
 
 	\show!
 
