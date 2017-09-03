@@ -43,6 +43,7 @@ Layout = require "luigi.layout"
 			{
 				type: "button"
 				text: "Overview"
+				id: "overviewButton"
 				width: 96
 				size: 14
 				style: "glass"
@@ -62,7 +63,9 @@ Layout = require "luigi.layout"
 			flow: "x"
 			width: false
 			height: false
-			id: "alertCards"
+			id: "notifications"
+			padding: 4
+			spacing: 4
 		}
 		{
 			type: "panel"

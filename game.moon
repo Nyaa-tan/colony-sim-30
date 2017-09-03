@@ -4,8 +4,60 @@ Layout = require "luigi.layout"
 Widget = require "luigi.widget"
 
 Widget.register "nyaa.map", =>
+	@addNotification = (arg) =>
+		notifications = @layout.notifications
+
+		arg.type or= "panel"
+		arg.style or= "glass"
+		arg.width or= 128
+		arg.height or= 192
+		arg.margin or= notifications.padding
+
+		with notification = notifications\addChild arg
+			with \addChild {
+				flow: "x"
+			}
+				\addChild {}
+				with \addChild {
+					type: "button"
+					text: "x"
+				}
+					\onPress (e) ->
+						notification.closing = true
+
+	@removeNotification = (arg) =>
+		notifications = @layout.notifications
+
+		for i = 1, #notifications
+			notification = notifications[i]
+
+			if notification == arg
+				table.remove notifications, i
+				notifications\reshape!
+				break
+
+	@updateNotifications = =>
+		notifications = @layout.notifications
+
+		i = 1
+		while i <= #notifications
+			notification = notifications[i]
+
+			if notification.closing
+				-- FIXME: Start with a fade-out animation, please.
+				notification.width -= 5
+
+				if notification.width <= 0
+					@\removeNotification notification
+
+					continue
+
+			i += 1
+
 	@\onPreDisplay (e) ->
 		-- Drawing code comes here.
+
+		@\updateNotifications!
 
 layouts = require "game.ui.layouts"
 
@@ -34,6 +86,13 @@ with layouts.GAME_UI
 
 	\setStyle style
 
+	.overviewButton\onPress (e) ->
+		print "overview clicked"
+
+		layouts.GAME_UI.root\addNotification {
+			text: "Heyya"
+		}
+
 	.menuButton\onPress (e) ->
 		\hide!
 		layouts.MAIN_MENU\show!
@@ -41,37 +100,6 @@ with layouts.GAME_UI
 	-- FIXME: Handle this in nyaa.map.
 	.map\onPressDrag (e) ->
 		print "clickity drag"
-
-	-- FIXME: Add a custom method to register cards, in a custom widget type.
-	card = .alertCards\addChild {
-		type: "button"
-		text: "info box"
-		style: "green glass"
-		width: 192 -- Arbitrary for now.
-		height: 256
-		align: "top left"
-		{}
-		{
-			type: "button"
-			style: "glass"
-			text: "x"
-			align: "middle center"
-			width: 48
-			height: 48
-			size: 24
-		}
-	}
-
-	-- "x" button.
-	card[#card]\onPress (e using nil) ->
-		self = e.target
-		panel = card.parent
-
-		index = 0
-		while index <= #panel and panel[index] != card
-			index += 1
-
-		table.remove panel, index
 
 with layouts.MAIN_MENU
 	\setTheme require "lib.luigi.luigi.theme.dark"
