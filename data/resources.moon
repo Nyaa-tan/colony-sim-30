@@ -5,7 +5,9 @@ Resource = Class "Resource",
 	__init: (arg) =>
 		@name = arg.name
 
-{
+DataCollection = require "nyaa.data_collection"
+
+DataCollection {
 	Resource
 		name: "Common Metals"
 
