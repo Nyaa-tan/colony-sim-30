@@ -10,6 +10,7 @@ env:
     - LUA="luajit=2.1"
 
 install:
+    - luarocks install moonscript
     - luarocks install busted
 
 before_install:
