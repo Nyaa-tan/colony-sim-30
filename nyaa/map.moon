@@ -1,4 +1,4 @@
-﻿
+
 Class = require "class"
 images = require "images"
 Ground = require "data.ground"
