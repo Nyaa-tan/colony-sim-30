@@ -12,7 +12,6 @@ Tile = Class "Tile",
 		@y = arg.y
 		@z = arg.z
 		@updated = false -- permet de savoir si une case est d'origine (générée par le bruit) ou si elle a été modifiée
-		@groundHight = arg.groundHight or 1	-- -10:-1 = crevace | 0 = plain | 1:10 = montagne
 		@groundType = arg.groundType or 20 -- -10 = lava | 0 = empty | 10 = cendres | 20 = weak dirt-like ground | 30 = stone
 		@groundSprite = arg.groundSprite or images.get "ground_undef.png" -- image du sol
 		@solidity = arg.solidity or 0 -- 0 pas de problème pour forer. +1 pour que ce soit du niveau technologique suivant.
