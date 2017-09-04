@@ -1,6 +1,6 @@
 images = require "images"
 
-Class = require "class"
+Class = require "nyaa.class"
 
 Class "GroundTypeReference",
 	__init: (arg) =>

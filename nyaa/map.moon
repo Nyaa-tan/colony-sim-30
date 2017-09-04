@@ -1,5 +1,5 @@
 
-Class = require "class"
+Class = require "nyaa.class"
 images = require "images"
 Ground = require "data.ground"
 
