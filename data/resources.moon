@@ -1,10 +1,5 @@
 
-Class = require "nyaa.class"
-
-Resource = Class "Resource",
-	__init: (arg) =>
-		@name = arg.name
-
+Resource = require "game.resource"
 DataCollection = require "nyaa.data_collection"
 
 DataCollection {
