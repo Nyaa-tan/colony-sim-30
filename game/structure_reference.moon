@@ -1,4 +1,5 @@
-Class = require "class"
+
+Class = require "nyaa.class"
 
 Class "StructureReference",
 	__init: (arg) =>
