@@ -6,11 +6,11 @@ describe "Structure", ->
 	TEST_REFERENCE = StructureReference
 		name: "Test Structure"
 
-	it "Structure {}", ->
+	it "constructor", ->
 		Structure
 			reference: TEST_REFERENCE
 
-	it "Structure {} -- errors", ->
+	it "constructor -- errors", ->
 		f = ->
 			Structure {}
 

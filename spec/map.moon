@@ -12,7 +12,7 @@ describe "Map", ->
 	TEST_STRUCTURE = Structure
 		reference: StructureReference {}
 
-	it "Map {}", ->
+	it "constructor", ->
 		assert Map {}
 
 	it "\\get", ->
