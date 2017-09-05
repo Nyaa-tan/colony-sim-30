@@ -68,7 +68,7 @@ Map = Class "Map",
 			self = Map arg
 
 			rocks = Ground\getByName "Rocks"
-			air = Ground\getByName "Air"
+			empty = Ground\getByName "Empty"
 
 			for x = 1, @xMax
 				@grid[x] = {}
@@ -80,7 +80,7 @@ Map = Class "Map",
 						if z <= 0
 							@grid[x][y][z] = rocks
 						else
-							@grid[x][y][z] = air
+							@grid[x][y][z] = empty
 
 			self
 

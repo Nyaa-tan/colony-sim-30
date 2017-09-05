@@ -23,8 +23,4 @@ require("nyaa.data_collection") {
 	Ground
 		name: "Rocks"
 		image: "rock.png"
-
-	Ground
-		name: "Air"
-		image: nil -- on purpose
 }
