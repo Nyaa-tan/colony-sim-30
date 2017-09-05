@@ -1,9 +1,9 @@
 
 Class = require "nyaa.class"
 
-Ground = require "game.groundType_reference"
+Ground = require "game.ground_properties"
 
-{
+require("nyaa.data_collection") {
 	Ground
 		name: "Lava"
 		image: "lava.png"

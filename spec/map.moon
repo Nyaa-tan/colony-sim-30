@@ -1,32 +1,35 @@
 
 describe "Map", ->
-	Map = require "nyaa.map"
+	Map = require "game.map"
 
-	GroundType = require "game.groundType_reference"
+	GroundType = require "game.ground_properties"
 	Structure = require "game.structure"
-	StructureReference = require "game.structure_reference"
+	StructureProperties = require "game.structure_properties"
 
 	TEST_GROUND = GroundType
 		name: "Test Ground Type"
 
 	TEST_STRUCTURE = Structure
-		reference: StructureReference {}
+		reference: StructureProperties {}
 
-	it "Map {}", ->
+	it "constructor", ->
 		assert Map {}
 
 	it "\\get", ->
-		m = Map {}
+		m = Map.flatMap {}
 
-		assert m\get 1, 1, 1
+		assert m\get 1, 1, 0
 
-	it "\\set", ->
-		m = Map {}
+	it "\\set sets ground type", ->
+		m = Map.flatMap {}
 
 		m\set 1, 1, 1,
 			groundType: TEST_GROUND
 
 		assert.are.same TEST_GROUND, m\get(1, 1, 1).groundType
+
+	it "\\set sets structure", ->
+		m = Map.flatMap {}
 
 		m\set 1, 2, 1,
 			structure: TEST_STRUCTURE

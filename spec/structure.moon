@@ -1,16 +1,16 @@
 
 describe "Structure", ->
 	Structure = require "game.structure"
-	StructureReference = require "game.structure_reference"
+	StructureProperties = require "game.structure_properties"
 
-	TEST_REFERENCE = StructureReference
+	TEST_PROPERTIES = StructureProperties
 		name: "Test Structure"
 
-	it "Structure {}", ->
+	it "constructor", ->
 		Structure
-			reference: TEST_REFERENCE
+			reference: TEST_PROPERTIES
 
-	it "Structure {} -- errors", ->
+	it "constructor -- errors", ->
 		f = ->
 			Structure {}
 

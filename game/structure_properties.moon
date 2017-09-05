@@ -1,7 +1,7 @@
 
 Class = require "nyaa.class"
 
-Class "StructureReference",
+Class "StructureProperties",
 	__init: (arg) =>
 		@hitpoints = arg.hitpoints or 100
 

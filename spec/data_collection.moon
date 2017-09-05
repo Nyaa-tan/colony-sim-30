@@ -12,7 +12,7 @@ describe "DataCollection", ->
 		id: "B"
 	}
 
-	it "constructs", ->
+	it "constructor", ->
 		c = DataCollection {A, B, A}
 
 		assert.are.same A, c[1]
