@@ -1,10 +1,10 @@
 
 describe "Map", ->
-	Map = require "nyaa.map"
+	Map = require "game.map"
 
-	GroundType = require "game.groundType_reference"
+	GroundType = require "game.ground_properties"
 	Structure = require "game.structure"
-	StructureReference = require "game.structure_reference"
+	StructureReference = require "game.structure_properties"
 
 	TEST_GROUND = GroundType
 		name: "Test Ground Type"
