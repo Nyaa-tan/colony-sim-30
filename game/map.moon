@@ -25,7 +25,7 @@ noise = (noise,xMax,yMax) ->
 Tile = Class "Tile",
 	__init: (arg) =>
 		@groundChange = arg.groundChange or nil -- permet de savoir si une case est d'origine (générée par le bruit) ou si elle a été modifiée
-		@groundType = arg.groundType
+		@groundType = arg.groundType or Ground[2]
 		@structure = arg.structure or nil
 		@ressources = arg.ressources or nil
 	
@@ -51,7 +51,7 @@ Map = Class "Map",
 
 		perlinMap: (arg) ->
 			self = Map arg
-			@noises or= 1 -- FIXME
+			@noises or= 1
 
 			mapSource1 = noise(@noises,@xMax,@yMax)		--Height Map
 			mapSource2 = noise(@noises+0.1,@xMax,@yMax*2)	--GroundType Map
