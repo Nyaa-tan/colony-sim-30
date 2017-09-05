@@ -4,13 +4,13 @@ describe "Map", ->
 
 	GroundType = require "game.ground_properties"
 	Structure = require "game.structure"
-	StructureReference = require "game.structure_properties"
+	StructureProperties = require "game.structure_properties"
 
 	TEST_GROUND = GroundType
 		name: "Test Ground Type"
 
 	TEST_STRUCTURE = Structure
-		reference: StructureReference {}
+		reference: StructureProperties {}
 
 	it "constructor", ->
 		assert Map {}
