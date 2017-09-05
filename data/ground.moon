@@ -3,7 +3,7 @@ Class = require "nyaa.class"
 
 Ground = require "game.ground_properties"
 
-{
+require("nyaa.data_collection") {
 	Ground
 		name: "Lava"
 		image: "lava.png"
@@ -23,4 +23,8 @@ Ground = require "game.ground_properties"
 	Ground
 		name: "Rocks"
 		image: "rock.png"
+
+	Ground
+		name: "Air"
+		image: nil -- on purpose
 }

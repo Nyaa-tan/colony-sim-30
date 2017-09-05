@@ -34,53 +34,84 @@ Tile = Class "Tile",
 			return true
 		else return false
 
-Class "Map",
+local Map
+
+Map = Class "Map",
 	__init: (arg) =>
 		@noises = arg.noises or nil -- FIXME
 		@defaultground = arg.defaultGround
 		@grid = {}
-		@xMax = arg.xMax
-		@yMax = arg.yMax
-		@zMin = arg.zMin
-		@zMax = arg.zMax
-		mapSource1 = noise(@noises,@xMax,@yMax)		--Height Map
-		mapSource2 = noise(@noises+0.1,@xMax,@yMax*2)	--GroundType Map
-		for x = 1, @xMax
-			for y = 1, @yMax
-				for z = @zMin, mapSource1[x][y]
-					grid[x][y][z] = Tile
-						groundType: Ground[mapSource2[x][y]+1]
-				for z = mapSource1[x][y]+1, @zMax
-					grid[x][y][z] = Ground[3] -- empty ground
-	---
-	-- @return (Tile)
-	get: (x, y, z) =>
-		grid[x][y][z]
-
-	---
-	-- @return nil
-	set: (x, y, z, arguments) =>
-		if arguments.groundType
-			grid[x][y][z].groundType = arguments.groundType
-			modified = true
-		if arguments.structure
-			grid[x][y][z].groundType = arguments.structure
-			modified = true
-		if arguments.ressource
-			grid[x][y][z].groundType = arguments.ressource
-			modified = true
-		if modified
-			grid[x][y][z].groundChange = true
-		
-	---
-	-- @return (string)
-	toMoon: =>
+		@xMax = arg.xMax or 300
+		@yMax = arg.yMax or 200
+		@zMin = arg.zMin or -3
+		@zMax = arg.zMax or 3
 
 	__class: {
 		:Tile
+
+		perlinMap: (arg) ->
+			self = Map arg
+
+			mapSource1 = noise(@noises,@xMax,@yMax)		--Height Map
+			mapSource2 = noise(@noises+0.1,@xMax,@yMax*2)	--GroundType Map
+			for x = 1, @xMax
+				for y = 1, @yMax
+					for z = @zMin, mapSource1[x][y]
+						grid[x][y][z] = Tile
+							groundType: Ground[mapSource2[x][y]+1]
+					for z = mapSource1[x][y]+1, @zMax
+						grid[x][y][z] = Ground[3] -- empty ground
+
+			self
+
+		flatMap: (arg) ->
+			self = Map arg
+
+			rocks = Ground\getByName "Rocks"
+			air = Ground\getByName "Air"
+
+			for x = 1, @xMax
+				@grid[x] = {}
+
+				for y = 1, @yMax
+					@grid[x][y] = {}
+
+					for z = @zMin, @zMax
+						if z <= 0
+							@grid[x][y][z] = rocks
+						else
+							@grid[x][y][z] = air
+
+			self
 
 		---
 		-- @param str (string)
 		fromMoon: (str) =>
 	}
+
+	---
+	-- @return (Tile)
+	get: (x, y, z) =>
+		@grid[x][y][z]
+
+	---
+	-- @return nil
+	set: (x, y, z, arguments) =>
+		if arguments.groundType
+			@grid[x][y][z].groundType = arguments.groundType
+			modified = true
+		if arguments.structure
+			@grid[x][y][z].groundType = arguments.structure
+			modified = true
+		if arguments.ressource
+			@grid[x][y][z].groundType = arguments.ressource
+			modified = true
+		if modified
+			@grid[x][y][z].groundChange = true
+		
+	---
+	-- @return (string)
+	toMoon: =>
+
+Map
 

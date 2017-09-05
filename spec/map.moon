@@ -16,17 +16,20 @@ describe "Map", ->
 		assert Map {}
 
 	it "\\get", ->
-		m = Map {}
+		m = Map.flatMap {}
 
-		assert m\get 1, 1, 1
+		assert m\get 1, 1, 0
 
-	it "\\set", ->
-		m = Map {}
+	it "\\set sets ground type", ->
+		m = Map.flatMap {}
 
 		m\set 1, 1, 1,
 			groundType: TEST_GROUND
 
 		assert.are.same TEST_GROUND, m\get(1, 1, 1).groundType
+
+	it "\\set sets structure", ->
+		m = Map.flatMap {}
 
 		m\set 1, 2, 1,
 			structure: TEST_STRUCTURE
