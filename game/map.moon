@@ -91,10 +91,11 @@ Map = Class "Map",
 					@grid[x][y] = {}
 
 					for z = @zMin, @zMax
-						if z <= 0
-							@grid[x][y][z] = rocks
-						else
-							@grid[x][y][z] = empty
+						@grid[x][y][z] = Tile
+							groundType: if z <= 0
+								rocks
+							else
+								empty
 
 			self
 

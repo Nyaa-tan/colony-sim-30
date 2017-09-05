@@ -11,6 +11,7 @@ require("nyaa.data_collection") {
 	Ground
 		name: "Ash"
 		image: "ash.png"
+		buildableAbove: true
 
 	Ground
 		name: "Empty"
@@ -20,8 +21,10 @@ require("nyaa.data_collection") {
 	Ground
 		name: "Dirt"
 		image: "dirt.png"
+		buildableAbove: true
 
 	Ground
 		name: "Rocks"
 		image: "rock.png"
+		buildableAbove: true
 }

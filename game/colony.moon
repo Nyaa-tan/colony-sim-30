@@ -45,6 +45,14 @@ Class "Colony",
 				unless tile.groundType.buildableOn
 					return nil, "not buildable"
 
+				tileBelow = @map\get X, Y, z-1
+
+				unless tileBelow
+					return nil, "no tile below"
+
+				unless tileBelow.groundType.buildableAbove
+					return nil, "cannot build above tile below"
+
 		for X = x - math.floor(halfSize), x + math.ceil(halfSize)
 			for Y = y - math.floor(halfSize), y + math.ceil(halfSize)
 				@map\set X, Y, z, :structure
