@@ -1,27 +1,23 @@
 
-language: c
+language: python
 sudo: false
 
 env:
-    global:
-        - LUAROCKS=2.4.1
-    matrix:
-        - LUA="lua=5.1"
-        - LUA="lua=5.2"
-        - LUA="lua=5.3"
-        - LUA="luajit=2.0"
-        - LUA="luajit=2.1"
+    - LUA="lua=5.1"
+    - LUA="lua=5.2"
+    - LUA="lua=5.3"
+    - LUA="luajit=2.0"
+    - LUA="luajit=2.1"
 
-before_install:
-    - source .travis/setenv_lua.sh
+install:
     - luarocks install moonscript
     - luarocks install busted
 
+before_install:
+    - pip install hererocks
+    - hererocks lua_install -r^ --$LUA
+    - export PATH=$PATH:$PWD/lua_install/bin
+
 script:
     - busted --verbose spec/*.moon
-
-notifications:
-    email:
-        on_success: change
-        on_failure: always
 
