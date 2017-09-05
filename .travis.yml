@@ -12,7 +12,7 @@ env:
         - LUA="luajit=2.0"
         - LUA="luajit=2.1"
 
-install:
+before_install:
     - source .travis/setenv_lua.sh
     - luarocks install moonscript
     - luarocks install busted
