@@ -9,7 +9,7 @@ function info {
 
 {
 	info "Running automated tests."
-	busted spec/**/*.moon
+	busted --verbose spec/**/*.moon -c
 	echo
 }
 

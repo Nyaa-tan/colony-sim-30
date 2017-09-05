@@ -12,6 +12,8 @@ env:
 install:
     - luarocks install moonscript
     - luarocks install busted
+    - luarocks install luacov
+    - luarocks install luacov-coveralls
 
 before_install:
     - pip install hererocks
@@ -19,5 +21,8 @@ before_install:
     - export PATH=$PATH:$PWD/lua_install/bin
 
 script:
-    - busted --verbose spec/*.moon
+    - busted --verbose spec/*.moon --coverage
+
+after_success:
+    - luacov-coveralls -i "%.moon" -e "spec"
 
