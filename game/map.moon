@@ -51,16 +51,22 @@ Map = Class "Map",
 
 		perlinMap: (arg) ->
 			self = Map arg
+			@noises or= 1 -- FIXME
 
 			mapSource1 = noise(@noises,@xMax,@yMax)		--Height Map
 			mapSource2 = noise(@noises+0.1,@xMax,@yMax*2)	--GroundType Map
 			for x = 1, @xMax
+				@grid[x] = {}
+				
 				for y = 1, @yMax
+					@grid[x][y] = {}
+					
 					for z = @zMin, mapSource1[x][y]
-						grid[x][y][z] = Tile
+						@grid[x][y][z] = Tile
 							groundType: Ground[mapSource2[x][y]+1]
+							
 					for z = mapSource1[x][y]+1, @zMax
-						grid[x][y][z] = Ground[3] -- empty ground
+						@grid[x][y][z] = Ground[3] -- empty ground
 
 			self
 
