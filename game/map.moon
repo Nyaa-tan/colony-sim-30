@@ -1,7 +1,7 @@
 
 Class = require "nyaa.class"
 images = require "images"
-Ground = require "data.ground"
+ground = require "data.ground"
 
 tool = (x,y,z) -> -- Cette fonction sert à générer une carte binaire de perlin noise
 	part = 5
@@ -71,18 +71,18 @@ Map = Class "Map",
 					
 					for z = @zMin, mapSource1[x][y]
 						@grid[x][y][z] = Tile
-							groundType: Ground[mapSource2[x][y]+1]
+							groundType: ground[mapSource2[x][y]+1]
 							
 					for z = mapSource1[x][y]+1, @zMax
-						@grid[x][y][z] = Ground[3] -- empty ground
+						@grid[x][y][z] = ground[3] -- empty ground
 
 			self
 
 		flatMap: (arg) ->
 			self = Map arg
 
-			rocks = Ground\getByName "Rocks"
-			empty = Ground\getByName "Empty"
+			rocks = ground\getByName "Rocks"
+			empty = ground\getByName "Empty"
 
 			for x = 1, @xMax
 				@grid[x] = {}
