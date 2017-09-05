@@ -95,19 +95,26 @@ Map = Class "Map",
 		@grid[x][y][z]
 
 	---
-	-- @return nil
+	-- @return boolean
 	set: (x, y, z, arguments) =>
+		local modified
+
 		if arguments.groundType
 			@grid[x][y][z].groundType = arguments.groundType
 			modified = true
+
 		if arguments.structure
-			@grid[x][y][z].groundType = arguments.structure
+			@grid[x][y][z].structure = arguments.structure
 			modified = true
+
 		if arguments.ressource
-			@grid[x][y][z].groundType = arguments.ressource
+			@grid[x][y][z].ressource = arguments.ressource
 			modified = true
+
 		if modified
 			@grid[x][y][z].groundChange = true
+
+		modified
 		
 	---
 	-- @return (string)
