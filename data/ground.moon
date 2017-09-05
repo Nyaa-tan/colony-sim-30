@@ -15,6 +15,7 @@ require("nyaa.data_collection") {
 	Ground
 		name: "Empty"
 		image: "empty.png"
+		buildableOn: true
 
 	Ground
 		name: "Dirt"
