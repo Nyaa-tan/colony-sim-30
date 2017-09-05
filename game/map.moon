@@ -30,9 +30,7 @@ Tile = Class "Tile",
 		@ressources = arg.ressources or nil
 	
 	crossable: =>
-		if @groundType != 0 and not @structure
-			return true
-		else return false
+		@groundType.crossable and not @structure
 
 	__tostring: =>
 		"<Tile: #{@groundType}, #{@structure}>"

@@ -9,6 +9,7 @@ Class "GroundProperties",
 
 		@buildableOn = arg.buildableOn or false
 		@buildableAbove = arg.buildableAbove or false
+		@crossable = arg.crossable or false
 
 	__tostring: =>
 		"<GroundProperties: #{@name}>"
