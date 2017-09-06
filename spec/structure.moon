@@ -8,11 +8,11 @@ describe "Structure", ->
 
 	it "constructor", ->
 		Structure
-			reference: TEST_PROPERTIES
+			properties: TEST_PROPERTIES
 
 	it "constructor -- errors", ->
 		f = ->
 			Structure {}
 
-		assert.has_error f, "no 'reference' attribute provided"
+		assert.has_error f, "no 'properties' attribute provided"
 

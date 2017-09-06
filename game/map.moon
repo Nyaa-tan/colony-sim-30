@@ -1,7 +1,7 @@
 
 Class = require "nyaa.class"
 images = require "images"
-Ground = require "data.ground"
+ground = require "data.ground"
 
 tool = (x,y,z) -> -- Cette fonction sert à générer une carte binaire de perlin noise
 	part = 5
@@ -30,9 +30,10 @@ Tile = Class "Tile",
 		@ressources = arg.ressources or nil
 	
 	crossable: =>
-		if @groundType != 0 and not @structure
-			return true
-		else return false
+		@groundType.crossable and not @structure
+
+	__tostring: =>
+		"<Tile: #{@groundType}, #{@structure}>"
 
 local Map
 
@@ -40,11 +41,16 @@ Map = Class "Map",
 	__init: (arg) =>
 		@noises = arg.noises or nil -- FIXME
 		@defaultground = arg.defaultGround
+
 		@grid = {}
 		@xMax = arg.xMax or 300
 		@yMax = arg.yMax or 200
 		@zMin = arg.zMin or -3
 		@zMax = arg.zMax or 3
+
+		@colonies = arg.colonies or {}
+
+		@frame = 0
 
 	__class: {
 		:Tile
@@ -63,18 +69,18 @@ Map = Class "Map",
 					
 					for z = @zMin, mapSource1[x][y]
 						@grid[x][y][z] = Tile
-							groundType: Ground[mapSource2[x][y]+1]
+							groundType: ground[mapSource2[x][y]+1]
 							
 					for z = mapSource1[x][y]+1, @zMax
-						@grid[x][y][z] = Ground[3] -- empty ground
+						@grid[x][y][z] = ground[3] -- empty ground
 
 			self
 
 		flatMap: (arg) ->
 			self = Map arg
 
-			rocks = Ground\getByName "Rocks"
-			empty = Ground\getByName "Empty"
+			rocks = ground\getByName "Rocks"
+			empty = ground\getByName "Empty"
 
 			for x = 1, @xMax
 				@grid[x] = {}
@@ -83,10 +89,11 @@ Map = Class "Map",
 					@grid[x][y] = {}
 
 					for z = @zMin, @zMax
-						if z <= 0
-							@grid[x][y][z] = rocks
-						else
-							@grid[x][y][z] = empty
+						@grid[x][y][z] = Tile
+							groundType: if z <= 0
+								rocks
+							else
+								empty
 
 			self
 
@@ -98,6 +105,18 @@ Map = Class "Map",
 	---
 	-- @return (Tile)
 	get: (x, y, z) =>
+		unless @grid[x]
+			return nil, "out of borders on x-axis"
+
+		unless @grid[x][y]
+			return nil, "out of borders on y-axis"
+
+		unless @grid[x][y][z]
+			return nil, "out of borders on z-axis"
+
+		@grid[x][y][z]
+
+	rawGet: (x, y, z) =>
 		@grid[x][y][z]
 
 	---
@@ -121,6 +140,20 @@ Map = Class "Map",
 			@grid[x][y][z].groundChange = true
 
 		modified
+
+	registerColony: (colony) =>
+		colony.map = self
+
+		table.insert @colonies, colony
+
+		colony
+
+	---
+	update: =>
+		@frame += 1
+
+		for colony in *@colonies
+			colony\update!
 		
 	---
 	-- @return (string)
